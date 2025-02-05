@@ -61,7 +61,7 @@
             const email = document.getElementById("email").value;
             const { key, id } = getQueryParams();
             if (!email) {
-                alert("Please enter an email");
+                alert("Please enter an email ${key} ${id}");
                 return;
             }
             
