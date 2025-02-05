@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send Summary</title>
+    <title>Audiocodes AI summary</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -52,36 +52,41 @@
         function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
             return {
-                key: params.get("key"),
-                id: params.get("id")
+                serial: params.get("serial"),
+                meeting_id: params.get("meeting_id")
             };
         }
 
         function sendEmail() {
             const email = document.getElementById("email").value;
-            const { key, id } = getQueryParams();
+            const { serial, meeting_id } = getQueryParams();
             if (!email) {
-                alert(`Please enter an email. Key: ${key}, ID: ${id}`);
+                alert(`Please enter an email. serial:, meeting_id: ${meeting_id}`);
                 return;
             }
-            
-            fetch("https://your-api-endpoint.com/send-summary", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email: email, key: key, id: id })
-            })
-            .then(response => response.json())
-            .then(data => alert("Summary sent successfully!"))
-            .catch(error => alert("Error sending summary"));
+
+            document.querySelector('.container').innerHTML = `
+                <img src="res/ac_logo.svg" alt="Logo" class="logo">
+                <h1>Thanks, enjoy the meeting!</h1>`;
+                
+            // fetch("https://your-api-endpoint.com/send-summary", {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json"
+            //     },
+            //     body: JSON.stringify({ email: email, serial: serial, meeting_id: meeting_id })
+            // })
+            // .then(response => response.json())
+            // .then(data => alert("Summary sent successfully!"))
+            // .catch(error => alert("Error sending summary"));
         }
     </script>
 </head>
 <body>
     <div class="container">
         <img src="res/ac_logo.svg" alt="Logo" class="logo">
-        <h2>Send Summary</h2>
+        <h2>Audiocodes AI summary</h2>
+		<h14>add your email to get the meeting sumamry at the end of the meeting</h14>
         <input type="email" id="email" placeholder="Enter email" required>
         <button onclick="sendEmail()">Send Summary</button>
     </div>
