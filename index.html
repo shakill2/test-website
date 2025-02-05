@@ -49,8 +49,17 @@
         }
     </style>
     <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                key: params.get("key"),
+                id: params.get("id")
+            };
+        }
+
         function sendEmail() {
             const email = document.getElementById("email").value;
+            const { key, id } = getQueryParams();
             if (!email) {
                 alert("Please enter an email");
                 return;
@@ -61,7 +70,7 @@
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ email: email })
+                body: JSON.stringify({ email: email, key: key, id: id })
             })
             .then(response => response.json())
             .then(data => alert("Summary sent successfully!"))
@@ -71,7 +80,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="res/ac_logo.svg" alt="Logo" class="logo">
+        <img src="logo.png" alt="Logo" class="logo">
         <h2>Send Summary</h2>
         <input type="email" id="email" placeholder="Enter email" required>
         <button onclick="sendEmail()">Send Summary</button>
